@@ -34,7 +34,7 @@ public class NewGoodAdapter extends DelegateAdapter.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View newgood = LayoutInflater.from(context).inflate(R.layout.newgood, parent, false);
-        return new ViewHolder(newgood);
+        return new ViewHolder_good(newgood);
     }
 
     @Override
@@ -46,11 +46,11 @@ public class NewGoodAdapter extends DelegateAdapter.Adapter {
     public int getItemCount() {
         return 4;
     }
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder_good extends RecyclerView.ViewHolder {
 
         private final ImageView good;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder_good(@NonNull View itemView) {
             super(itemView);
             good = itemView.findViewById(R.id.iv_good);
         }

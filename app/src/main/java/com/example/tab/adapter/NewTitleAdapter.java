@@ -33,7 +33,7 @@ public class NewTitleAdapter extends DelegateAdapter.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View newtitle = LayoutInflater.from(context).inflate(R.layout.newtitle, parent, false);
 
-        return new ViewHolder(newtitle);
+        return new ViewHolder_newtitle(newtitle);
     }
 
     @Override
@@ -46,11 +46,11 @@ public class NewTitleAdapter extends DelegateAdapter.Adapter {
         return 1;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder_newtitle extends RecyclerView.ViewHolder {
 
         private final TextView tv_title;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder_newtitle(@NonNull View itemView) {
             super(itemView);
             tv_title = itemView.findViewById(R.id.tv_title);
         }

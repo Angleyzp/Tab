@@ -32,7 +32,7 @@ public class HottitleAdapter extends DelegateAdapter.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View hottitle = LayoutInflater.from(context).inflate(R.layout.hottitle, parent, false);
-        return new ViewHolder(hottitle);
+        return new ViewHolder_title(hottitle);
     }
 
     @Override
@@ -45,11 +45,11 @@ public class HottitleAdapter extends DelegateAdapter.Adapter {
         return 1;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder_title extends RecyclerView.ViewHolder {
 
         private final TextView tv_title;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder_title(@NonNull View itemView) {
             super(itemView);
             tv_title = itemView.findViewById(R.id.tv_title);
         }

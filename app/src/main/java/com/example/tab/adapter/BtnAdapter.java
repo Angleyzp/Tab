@@ -32,7 +32,7 @@ public class BtnAdapter extends DelegateAdapter.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View btn = LayoutInflater.from(context).inflate(R.layout.btn_item, parent, false);
-        return new ViewHolder(btn);
+        return new ViewHolder_btn(btn);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class BtnAdapter extends DelegateAdapter.Adapter {
         return 1;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder_btn extends RecyclerView.ViewHolder {
 
         private final Button btna;
         private final Button btnb;
@@ -53,7 +53,7 @@ public class BtnAdapter extends DelegateAdapter.Adapter {
         private final Button btnd;
         private final Button btne;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder_btn(@NonNull View itemView) {
             super(itemView);
             btna = itemView.findViewById(R.id.btn_a);
             btnb = itemView.findViewById(R.id.btn_b);

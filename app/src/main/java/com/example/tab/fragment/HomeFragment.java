@@ -18,6 +18,7 @@ import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.example.tab.R;
 import com.example.tab.adapter.BannerAdapter;
 import com.example.tab.adapter.BtnAdapter;
+import com.example.tab.adapter.HotAdapter;
 import com.example.tab.adapter.HottitleAdapter;
 import com.example.tab.adapter.NewGoodAdapter;
 import com.example.tab.adapter.NewTitleAdapter;
@@ -42,6 +43,7 @@ public class HomeFragment extends Fragment {
 
     private void initView(View view) {
         rv = view.findViewById(R.id.rv);
+        rv.setFocusableInTouchMode(false);
         //创建Vlayout布局管理器
         VirtualLayoutManager manager = new VirtualLayoutManager(getContext());
         //创建服复用池
@@ -49,7 +51,7 @@ public class HomeFragment extends Fragment {
         //绑定布局管理器
         rv.setRecycledViewPool(pool);
         //设置复用池的大小
-        pool.setMaxRecycledViews(0,10);
+        pool.setMaxRecycledViews(0,20);
 
 
 
@@ -80,9 +82,9 @@ public class HomeFragment extends Fragment {
         SingleLayoutHelper singleLayoutHelper_btn = new SingleLayoutHelper();
         // 公共属性
         // 设置布局里Item个数
-        singleLayoutHelper_banner.setItemCount(1);
+        singleLayoutHelper_btn.setItemCount(1);
         // 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
-        singleLayoutHelper.setPadding(25, 25, 25, 25);
+        singleLayoutHelper_btn.setPadding(25, 25, 25, 25);
         //设置第三行布局适配器
         BtnAdapter btnAdapter = new BtnAdapter(singleLayoutHelper_btn, getContext());
 
@@ -90,7 +92,7 @@ public class HomeFragment extends Fragment {
         SingleLayoutHelper singleLayoutHelper_Newtitle = new SingleLayoutHelper();
         // 公共属性
         // 设置布局里Item个数
-        singleLayoutHelper_banner.setItemCount(1);
+        singleLayoutHelper_Newtitle.setItemCount(1);
         //设置第四行布局适配器
         HottitleAdapter hottitleAdapter = new HottitleAdapter(singleLayoutHelper_Newtitle, getContext());
 
@@ -99,7 +101,7 @@ public class HomeFragment extends Fragment {
         GridLayoutHelper hottitle = new GridLayoutHelper(2);
         // 公共属性
         // 设置布局里Item个数
-        singleLayoutHelper_banner.setItemCount(2);
+        hottitle.setItemCount(2);
         //设置第五行布局适配器
         NewGoodAdapter newGoodAdapter = new NewGoodAdapter(hottitle, getContext());
 
@@ -108,10 +110,18 @@ public class HomeFragment extends Fragment {
         SingleLayoutHelper singleLayoutHelper_Hottitle = new SingleLayoutHelper();
         // 公共属性
         // 设置布局里Item个数
-        singleLayoutHelper_banner.setItemCount(1);
+        singleLayoutHelper_Hottitle.setItemCount(1);
         //设置第六行布局适配器
         NewTitleAdapter newTitleAdapter = new NewTitleAdapter(singleLayoutHelper_Hottitle, getContext());
 
+
+        //第七行布局
+        GridLayoutHelper newhelper = new GridLayoutHelper(2);
+        // 公共属性
+        // 设置布局里Item个数
+        newhelper.setItemCount(2);
+        //设置第七行布局适配器
+        HotAdapter hotAdapter = new HotAdapter(newhelper, getContext());
 
 
         //创建适配器包
@@ -123,6 +133,8 @@ public class HomeFragment extends Fragment {
         adapter.addAdapter(hottitleAdapter);//第四行
         adapter.addAdapter(newGoodAdapter);//第五行
         adapter.addAdapter(newTitleAdapter);//第六行
+        adapter.addAdapter(hotAdapter);//第七行
+
         //绑定布局管理器
         rv.setLayoutManager(manager);
         //绑定适配器
