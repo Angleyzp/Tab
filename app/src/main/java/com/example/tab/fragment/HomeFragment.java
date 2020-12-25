@@ -17,6 +17,7 @@ import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.example.tab.R;
 import com.example.tab.adapter.BannerAdapter;
 import com.example.tab.adapter.BtnAdapter;
+import com.example.tab.adapter.HottitleAdapter;
 import com.example.tab.adapter.SearchAdapter;
 
 public class HomeFragment extends Fragment {
@@ -77,9 +78,18 @@ public class HomeFragment extends Fragment {
         // 公共属性
         // 设置布局里Item个数
         singleLayoutHelper_banner.setItemCount(1);
+        // 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
+        singleLayoutHelper.setPadding(25, 25, 25, 25);
         //设置第三行布局适配器
         BtnAdapter btnAdapter = new BtnAdapter(singleLayoutHelper_btn, getContext());
 
+        //第四行布局
+        SingleLayoutHelper singleLayoutHelper_Hottitle = new SingleLayoutHelper();
+        // 公共属性
+        // 设置布局里Item个数
+        singleLayoutHelper_banner.setItemCount(1);
+        //设置第四行布局适配器
+        HottitleAdapter hottitleAdapter = new HottitleAdapter(singleLayoutHelper_Hottitle, getContext());
 
         //创建适配器包
         DelegateAdapter adapter = new DelegateAdapter(manager,true);
@@ -87,6 +97,7 @@ public class HomeFragment extends Fragment {
         adapter.addAdapter(searchAdapter);//第一行
         adapter.addAdapter(bannerAdapter);//第二行
         adapter.addAdapter(btnAdapter);//第三行
+        adapter.addAdapter(hottitleAdapter);//第三行
         //绑定布局管理器
         rv.setLayoutManager(manager);
         //绑定适配器
