@@ -16,6 +16,7 @@ import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.example.tab.R;
 import com.example.tab.adapter.BannerAdapter;
+import com.example.tab.adapter.BtnAdapter;
 import com.example.tab.adapter.SearchAdapter;
 
 public class HomeFragment extends Fragment {
@@ -54,11 +55,9 @@ public class HomeFragment extends Fragment {
         // 设置布局里Item个数
         singleLayoutHelper.setItemCount(1);
         // 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
-        singleLayoutHelper.setPadding(20, 20, 20, 20);
-        // 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
-        singleLayoutHelper.setMargin(20, 20, 20, 20);
+        singleLayoutHelper.setPadding(10, 10, 10, 10);
         // 设置背景颜色
-        singleLayoutHelper.setBgColor(Color.LTGRAY);
+        singleLayoutHelper.setBgColor(Color.CYAN);
         // 设置设置布局内每行布局的宽与高的比
         singleLayoutHelper.setAspectRatio(11);
         //设置第一行布局适配器
@@ -69,25 +68,25 @@ public class HomeFragment extends Fragment {
         // 公共属性
         // 设置布局里Item个数
         singleLayoutHelper_banner.setItemCount(1);
-        // 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
-        singleLayoutHelper_banner.setPadding(20, 20, 20, 20);
-        // 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
-        singleLayoutHelper_banner.setMargin(20, 20, 20, 20);
-        // 设置背景颜色
-        singleLayoutHelper_banner.setBgColor(Color.LTGRAY);
-        // 设置设置布局内每行布局的宽与高的比
-        singleLayoutHelper_banner.setAspectRatio(11);
         //设置第二行布局适配器
         BannerAdapter bannerAdapter = new BannerAdapter(singleLayoutHelper_banner,getContext());
 
 
-
+        //第三行布局
+        SingleLayoutHelper singleLayoutHelper_btn = new SingleLayoutHelper();
+        // 公共属性
+        // 设置布局里Item个数
+        singleLayoutHelper_banner.setItemCount(1);
+        //设置第三行布局适配器
+        BtnAdapter btnAdapter = new BtnAdapter(singleLayoutHelper_btn, getContext());
 
 
         //创建适配器包
         DelegateAdapter adapter = new DelegateAdapter(manager,true);
         //添加适配器
         adapter.addAdapter(searchAdapter);//第一行
+        adapter.addAdapter(bannerAdapter);//第二行
+        adapter.addAdapter(btnAdapter);//第三行
         //绑定布局管理器
         rv.setLayoutManager(manager);
         //绑定适配器
