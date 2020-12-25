@@ -13,11 +13,14 @@ import android.view.ViewGroup;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
+import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.example.tab.R;
 import com.example.tab.adapter.BannerAdapter;
 import com.example.tab.adapter.BtnAdapter;
 import com.example.tab.adapter.HottitleAdapter;
+import com.example.tab.adapter.NewGoodAdapter;
+import com.example.tab.adapter.NewTitleAdapter;
 import com.example.tab.adapter.SearchAdapter;
 
 public class HomeFragment extends Fragment {
@@ -84,12 +87,32 @@ public class HomeFragment extends Fragment {
         BtnAdapter btnAdapter = new BtnAdapter(singleLayoutHelper_btn, getContext());
 
         //第四行布局
-        SingleLayoutHelper singleLayoutHelper_Hottitle = new SingleLayoutHelper();
+        SingleLayoutHelper singleLayoutHelper_Newtitle = new SingleLayoutHelper();
         // 公共属性
         // 设置布局里Item个数
         singleLayoutHelper_banner.setItemCount(1);
         //设置第四行布局适配器
-        HottitleAdapter hottitleAdapter = new HottitleAdapter(singleLayoutHelper_Hottitle, getContext());
+        HottitleAdapter hottitleAdapter = new HottitleAdapter(singleLayoutHelper_Newtitle, getContext());
+
+
+        //第五行布局
+        GridLayoutHelper hottitle = new GridLayoutHelper(2);
+        // 公共属性
+        // 设置布局里Item个数
+        singleLayoutHelper_banner.setItemCount(2);
+        //设置第五行布局适配器
+        NewGoodAdapter newGoodAdapter = new NewGoodAdapter(hottitle, getContext());
+
+
+        //第六行布局
+        SingleLayoutHelper singleLayoutHelper_Hottitle = new SingleLayoutHelper();
+        // 公共属性
+        // 设置布局里Item个数
+        singleLayoutHelper_banner.setItemCount(1);
+        //设置第六行布局适配器
+        NewTitleAdapter newTitleAdapter = new NewTitleAdapter(singleLayoutHelper_Hottitle, getContext());
+
+
 
         //创建适配器包
         DelegateAdapter adapter = new DelegateAdapter(manager,true);
@@ -97,7 +120,9 @@ public class HomeFragment extends Fragment {
         adapter.addAdapter(searchAdapter);//第一行
         adapter.addAdapter(bannerAdapter);//第二行
         adapter.addAdapter(btnAdapter);//第三行
-        adapter.addAdapter(hottitleAdapter);//第三行
+        adapter.addAdapter(hottitleAdapter);//第四行
+        adapter.addAdapter(newGoodAdapter);//第五行
+        adapter.addAdapter(newTitleAdapter);//第六行
         //绑定布局管理器
         rv.setLayoutManager(manager);
         //绑定适配器
