@@ -20,6 +20,8 @@ import com.example.tab.adapter.BannerAdapter;
 import com.example.tab.adapter.BtnAdapter;
 import com.example.tab.adapter.HotAdapter;
 import com.example.tab.adapter.HottitleAdapter;
+import com.example.tab.adapter.JuJiaTitleAdapter;
+import com.example.tab.adapter.JujiaListAdapter;
 import com.example.tab.adapter.NewGoodAdapter;
 import com.example.tab.adapter.NewTitleAdapter;
 import com.example.tab.adapter.RenQiAdapter;
@@ -165,6 +167,24 @@ public class HomeFragment extends Fragment {
         ZhuanTiListAdapter zhuanTiListAdapter = new ZhuanTiListAdapter(zhuanti, getContext());
 
 
+        //第十二行布局
+        SingleLayoutHelper singleLayoutHelper_jujiaTitle = new SingleLayoutHelper();
+        // 公共属性
+        // 设置布局里Item个数
+        singleLayoutHelper_jujiaTitle.setItemCount(1);
+        //设置第十二行布局适配器
+        JuJiaTitleAdapter juJiaTitleAdapter = new JuJiaTitleAdapter(singleLayoutHelper_jujiaTitle, getContext());
+
+
+
+        //第十三行布局
+        GridLayoutHelper JujiaList = new GridLayoutHelper(2);
+        // 公共属性
+        // 设置布局里Item个数
+        JujiaList.setItemCount(3);
+        //设置第十三行布局适配器
+        JujiaListAdapter jujiaListAdapter = new JujiaListAdapter(JujiaList, getContext());
+
         //创建适配器包
         DelegateAdapter adapter = new DelegateAdapter(manager,false);
         //添加适配器
@@ -178,7 +198,9 @@ public class HomeFragment extends Fragment {
         adapter.addAdapter(renQiAdapter);//第八行
         adapter.addAdapter(renqiListAdapter);//第九行
         adapter.addAdapter(zhuanTiAdapter);//第十行
-        adapter.addAdapter(zhuanTiListAdapter);//第十行
+        adapter.addAdapter(zhuanTiListAdapter);//第十一行
+        adapter.addAdapter(juJiaTitleAdapter);//第十二行
+        adapter.addAdapter(jujiaListAdapter);//第十三行
 
         //绑定布局管理器
         rv.setLayoutManager(manager);
