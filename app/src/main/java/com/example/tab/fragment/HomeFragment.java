@@ -22,7 +22,11 @@ import com.example.tab.adapter.HotAdapter;
 import com.example.tab.adapter.HottitleAdapter;
 import com.example.tab.adapter.NewGoodAdapter;
 import com.example.tab.adapter.NewTitleAdapter;
+import com.example.tab.adapter.RenQiAdapter;
+import com.example.tab.adapter.RenqiListAdapter;
 import com.example.tab.adapter.SearchAdapter;
+import com.example.tab.adapter.ZhuanTiAdapter;
+import com.example.tab.adapter.ZhuanTiListAdapter;
 
 public class HomeFragment extends Fragment {
 
@@ -124,8 +128,45 @@ public class HomeFragment extends Fragment {
         HotAdapter hotAdapter = new HotAdapter(newhelper, getContext());
 
 
+        //第八行布局
+        SingleLayoutHelper singleLayoutHelper_renqi = new SingleLayoutHelper();
+        // 公共属性
+        // 设置布局里Item个数
+        singleLayoutHelper_renqi.setItemCount(1);
+        //设置第八行布局适配器
+        RenQiAdapter renQiAdapter = new RenQiAdapter(singleLayoutHelper_renqi, getContext());
+
+        //第九行布局
+        GridLayoutHelper RenqiListhelper = new GridLayoutHelper(1);
+        // 公共属性
+        // 设置布局里Item个数
+        RenqiListhelper.setItemCount(2);
+        //设置第九行布局适配器
+        RenqiListAdapter renqiListAdapter = new RenqiListAdapter(RenqiListhelper, getContext());
+
+
+        //第十行布局
+        SingleLayoutHelper singleLayoutHelper_zhuanti = new SingleLayoutHelper();
+        // 公共属性
+        // 设置布局里Item个数
+        singleLayoutHelper_zhuanti.setItemCount(1);
+        //设置第十行布局适配器
+        ZhuanTiAdapter zhuanTiAdapter = new ZhuanTiAdapter(singleLayoutHelper_zhuanti, getContext());
+
+
+
+
+        //第十一行布局
+        GridLayoutHelper zhuanti = new GridLayoutHelper(1);
+        // 公共属性
+        // 设置布局里Item个数
+        RenqiListhelper.setItemCount(1);
+        //设置第十一行布局适配器
+        ZhuanTiListAdapter zhuanTiListAdapter = new ZhuanTiListAdapter(zhuanti, getContext());
+
+
         //创建适配器包
-        DelegateAdapter adapter = new DelegateAdapter(manager,true);
+        DelegateAdapter adapter = new DelegateAdapter(manager,false);
         //添加适配器
         adapter.addAdapter(searchAdapter);//第一行
         adapter.addAdapter(bannerAdapter);//第二行
@@ -134,6 +175,10 @@ public class HomeFragment extends Fragment {
         adapter.addAdapter(newGoodAdapter);//第五行
         adapter.addAdapter(newTitleAdapter);//第六行
         adapter.addAdapter(hotAdapter);//第七行
+        adapter.addAdapter(renQiAdapter);//第八行
+        adapter.addAdapter(renqiListAdapter);//第九行
+        adapter.addAdapter(zhuanTiAdapter);//第十行
+        adapter.addAdapter(zhuanTiListAdapter);//第十行
 
         //绑定布局管理器
         rv.setLayoutManager(manager);
