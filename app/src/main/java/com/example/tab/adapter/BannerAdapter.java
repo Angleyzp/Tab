@@ -14,6 +14,7 @@ import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.bumptech.glide.Glide;
 import com.example.tab.R;
+import com.example.tab.bean.Bean;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
@@ -22,10 +23,12 @@ import java.util.ArrayList;
 public class BannerAdapter extends DelegateAdapter.Adapter {
     private SingleLayoutHelper singleLayoutHelper;
     private Context context;
+    private ArrayList<Bean.DataDTO.BannerDTO> list;
 
-    public BannerAdapter(SingleLayoutHelper singleLayoutHelper, Context context) {
+    public BannerAdapter(SingleLayoutHelper singleLayoutHelper, Context context, ArrayList<Bean.DataDTO.BannerDTO> list) {
         this.singleLayoutHelper = singleLayoutHelper;
         this.context = context;
+        this.list = list;
     }
 
     @Override
@@ -43,16 +46,12 @@ public class BannerAdapter extends DelegateAdapter.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             BannerViewHolder bannerViewHolder = (BannerViewHolder) holder;
-        ArrayList<Integer> list = new ArrayList<>();
-        list.add(R.drawable.a);
-        list.add(R.drawable.aa);
-        list.add(R.drawable.b);
-        list.add(R.drawable.bb);
         bannerViewHolder.banenr.setImages(list);
         bannerViewHolder.banenr.setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {
-                Glide.with(context).load(path).into(imageView);
+                Bean.DataDTO.BannerDTO lode = (Bean.DataDTO.BannerDTO) path;
+                Glide.with(context).load(lode.getImage_url()).into(imageView);
             }
         });
         bannerViewHolder.banenr.start();

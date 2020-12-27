@@ -1,15 +1,9 @@
 package com.example.tab.fragment;
 
 import android.graphics.Color;
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
@@ -29,26 +23,26 @@ import com.example.tab.adapter.RenqiListAdapter;
 import com.example.tab.adapter.SearchAdapter;
 import com.example.tab.adapter.ZhuanTiAdapter;
 import com.example.tab.adapter.ZhuanTiListAdapter;
+import com.example.tab.baseactivity.BaseFragment;
+import com.example.tab.bean.Bean;
+import com.example.tab.contract.HomeContract;
+import com.example.tab.persenter.HomePresenter;
 
-public class HomeFragment extends Fragment {
+import java.util.ArrayList;
+
+public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.IMainView {
+
 
     private RecyclerView rv;
+    private ArrayList<Bean.DataDTO.BannerDTO> bannerlist;
+    private ArrayList<Bean.DataDTO.BrandListDTO> brandList;
+    private ArrayList<Bean.DataDTO.NewGoodsListDTO> newGoodsList;
+    private ArrayList<Bean.DataDTO.HotGoodsListDTO> hotGoodsList;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
-    }
+    protected void initView(View inflate) {
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initView(getView());
-    }
-
-    private void initView(View view) {
-        rv = view.findViewById(R.id.rv);
+        rv = inflate.findViewById(R.id.rv);
         rv.setFocusableInTouchMode(false);
         //创建Vlayout布局管理器
         VirtualLayoutManager manager = new VirtualLayoutManager(getContext());
@@ -78,10 +72,11 @@ public class HomeFragment extends Fragment {
         //第二行布局
         SingleLayoutHelper singleLayoutHelper_banner = new SingleLayoutHelper();
         // 公共属性
+        bannerlist = new ArrayList<>();
         // 设置布局里Item个数
         singleLayoutHelper_banner.setItemCount(1);
         //设置第二行布局适配器
-        BannerAdapter bannerAdapter = new BannerAdapter(singleLayoutHelper_banner,getContext());
+        BannerAdapter bannerAdapter = new BannerAdapter(singleLayoutHelper_banner,getContext(),bannerlist);
 
 
         //第三行布局
@@ -106,10 +101,11 @@ public class HomeFragment extends Fragment {
         //第五行布局
         GridLayoutHelper hottitle = new GridLayoutHelper(2);
         // 公共属性
+        brandList = new ArrayList<>();
         // 设置布局里Item个数
         hottitle.setItemCount(2);
         //设置第五行布局适配器
-        NewGoodAdapter newGoodAdapter = new NewGoodAdapter(hottitle, getContext());
+        NewGoodAdapter newGoodAdapter = new NewGoodAdapter(hottitle, getContext(),brandList);
 
 
         //第六行布局
@@ -124,10 +120,12 @@ public class HomeFragment extends Fragment {
         //第七行布局
         GridLayoutHelper newhelper = new GridLayoutHelper(2);
         // 公共属性
+        newGoodsList = new ArrayList<>();
         // 设置布局里Item个数
         newhelper.setItemCount(2);
+        newhelper.setSpanCount(2);
         //设置第七行布局适配器
-        HotAdapter hotAdapter = new HotAdapter(newhelper, getContext());
+        HotAdapter hotAdapter = new HotAdapter(newhelper, getContext(),newGoodsList);
 
 
         //第八行布局
@@ -141,10 +139,11 @@ public class HomeFragment extends Fragment {
         //第九行布局
         GridLayoutHelper RenqiListhelper = new GridLayoutHelper(1);
         // 公共属性
+        hotGoodsList = new ArrayList<>();
         // 设置布局里Item个数
         RenqiListhelper.setItemCount(2);
         //设置第九行布局适配器
-        RenqiListAdapter renqiListAdapter = new RenqiListAdapter(RenqiListhelper, getContext());
+        RenqiListAdapter renqiListAdapter = new RenqiListAdapter(RenqiListhelper, getContext(),hotGoodsList);
 
 
         //第十行布局
@@ -206,5 +205,28 @@ public class HomeFragment extends Fragment {
         rv.setLayoutManager(manager);
         //绑定适配器
         rv.setAdapter(adapter);
+    }
+
+    @Override
+    protected void initData() {
+        per.getData();
+    }
+
+    @Override
+    public HomePresenter getPer() {
+        return new HomePresenter();
+    }
+
+    @Override
+    protected int getLayoutID() {
+        return R.layout.fragment_home;
+    }
+
+    @Override
+    public void onSuccess(Bean bean) {
+        bannerlist.addAll(bean.getData().getBanner());
+        brandList.addAll(bean.getData().getBrandList());
+        newGoodsList.addAll(bean.getData().getNewGoodsList());
+        hotGoodsList.addAll(bean.getData().getHotGoodsList());
     }
 }

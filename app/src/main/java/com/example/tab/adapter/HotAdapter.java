@@ -13,15 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
+import com.bumptech.glide.Glide;
 import com.example.tab.R;
+import com.example.tab.bean.Bean;
+
+import java.util.ArrayList;
 
 public class HotAdapter extends DelegateAdapter.Adapter {
     private GridLayoutHelper gridLayoutHelper;
     private Context context;
+    private ArrayList<Bean.DataDTO.NewGoodsListDTO> list;
 
-    public HotAdapter(GridLayoutHelper gridLayoutHelper, Context context) {
+    public HotAdapter(GridLayoutHelper gridLayoutHelper, Context context, ArrayList<Bean.DataDTO.NewGoodsListDTO> list) {
         this.gridLayoutHelper = gridLayoutHelper;
         this.context = context;
+        this.list = list;
     }
 
     @Override
@@ -38,12 +44,13 @@ public class HotAdapter extends DelegateAdapter.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
+        Viewholder_hot viewholder_hot = (Viewholder_hot) holder;
+        Glide.with(context).load(list.get(position).getList_pic_url()).into(viewholder_hot.hot);
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return list.size();
     }
     class Viewholder_hot extends RecyclerView.ViewHolder {
 

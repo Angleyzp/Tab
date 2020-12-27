@@ -1,92 +1,107 @@
 package com.example.tab;
 
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
+import androidx.fragment.app.ListFragment;
+
+import com.example.tab.baseactivity.BaseActivity;
+import com.example.tab.bean.Bean;
+import com.example.tab.contract.HomeContract;
 import com.example.tab.fragment.HomeFragment;
 import com.example.tab.fragment.LessFragment;
+import com.example.tab.persenter.HomePresenter;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
 
-    private RadioGroup rgGroup;
-    private RadioButton rbA;
-    private RadioButton rbB;
-    private RadioButton rbC;
-    private RadioButton rbD;
-    private RadioButton rbE;
-    private RecyclerView rv;
-    private FrameLayout frame;
-    private LinearLayout ll;
+public class MainActivity extends BaseActivity<HomePresenter> implements HomeContract.IMainView, View.OnClickListener {
+
+
+    private android.widget.FrameLayout frame;
+    private android.widget.RadioGroup rg;
+    private android.widget.RadioButton btn1;
+    private android.widget.RadioButton btn2;
+    private android.widget.RadioButton btn3;
+    private android.widget.RadioButton btn4;
+    private android.widget.RadioButton btn5;
     private HomeFragment homeFragment;
+    private ArrayList<Bean.DataDTO.BannerDTO> bannerDTOS;
     private LessFragment lessFragment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initView();
-    }
-
-    private void initView() {
-        rgGroup = (RadioGroup) findViewById(R.id.rg_group);
-        rbA = (RadioButton) findViewById(R.id.rb_a);
-        rbB = (RadioButton) findViewById(R.id.rb_b);
-        rbC = (RadioButton) findViewById(R.id.rb_c);
-        rbD = (RadioButton) findViewById(R.id.rb_d);
-        rbE = (RadioButton) findViewById(R.id.rb_e);
-        rbA.setOnClickListener(this);
-        rbB.setOnClickListener(this);
-        rbC.setOnClickListener(this);
-        rbD.setOnClickListener(this);
-        rbE.setOnClickListener(this);
-
-
+    protected void initView() {
         frame = (FrameLayout) findViewById(R.id.frame);
+        bannerDTOS = new ArrayList<>();
+        rg = (RadioGroup) findViewById(R.id.rv);
+        btn1 = (RadioButton) findViewById(R.id.rb_a);
+        btn2 = (RadioButton) findViewById(R.id.rb_b);
+        btn3 = (RadioButton) findViewById(R.id.rb_c);
+        btn4 = (RadioButton) findViewById(R.id.rb_d);
+        btn5 = (RadioButton) findViewById(R.id.rb_e);
         homeFragment = new HomeFragment();
         lessFragment = new LessFragment();
-        //初始化界面
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.frame, homeFragment)
+                .add(R.id.frame,homeFragment)
                 .add(R.id.frame, lessFragment)
-                .show(homeFragment)
                 .hide(lessFragment)
+                .show(homeFragment)
                 .commit();
+        btn1.setOnClickListener(this);
+        btn2.setOnClickListener(this);
+        btn3.setOnClickListener(this);
+        btn4.setOnClickListener(this);
+        btn5.setOnClickListener(this);
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
+    protected void initData() {
+
+    }
+
+    @Override
+    protected int getLayoutID() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public HomePresenter getPer() {
+        return new HomePresenter();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
             case R.id.rb_a:
-                //展示第一个页面
                 getSupportFragmentManager().beginTransaction()
-                        .show(homeFragment)
                         .hide(lessFragment)
+                        .show(homeFragment)
                         .commit();
                 break;
             case R.id.rb_b:
-                //展示第二个界面
                 getSupportFragmentManager().beginTransaction()
-                        .show(lessFragment)
                         .hide(homeFragment)
+                        .show(lessFragment)
                         .commit();
                 break;
             case R.id.rb_c:
-                Toast.makeText(this, "页面3暂未开发", Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.rb_d:
-                Toast.makeText(this, "页面4暂未开发", Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.rb_e:
-                Toast.makeText(this, "页面5暂未开发", Toast.LENGTH_SHORT).show();
+
                 break;
         }
+    }
+
+    @Override
+    public void onSuccess(Bean bean) {
+
     }
 }
